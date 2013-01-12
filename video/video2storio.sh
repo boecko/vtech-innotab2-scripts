@@ -15,6 +15,11 @@ function float_eval()
     return $stat
 }
 
+test -z "$1" -a -z "$2" && {
+	echo "USAGE:"
+	echo "$0 <SOURCE> name.avi [ffmpegoptions]"
+	exit 1
+}
 
 INPUT="$1"
 shift
@@ -23,7 +28,7 @@ shift
 VIDEO_BIT_RATE=1800k
 AUDIO_BIT_RATE=64k
 ACODEC="-acodec libmp3lame"
-VCODEC="-r 65535/2733 -vcodec mpeg4 -vtag XVID"
+VCODEC="-vcodec mpeg4 -vtag XVID"
 
 H=272
 echo "Format? 1=16:9 2=4:3"
