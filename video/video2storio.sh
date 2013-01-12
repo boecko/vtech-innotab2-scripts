@@ -31,11 +31,20 @@ ACODEC="-acodec libmp3lame"
 VCODEC="-vcodec mpeg4 -vtag XVID"
 
 H=272
-echo "Format? 1=16:9 2=4:3"
+cat <<EOF
+Format des Ausgangsmaterials? 
+1 -> 16:9 (Sendung ist in 16:9 ausgestrahlt worden)
+2 -> 4:3 (Sendung ist in 4:3 ausgestrahlt worden)
+3 -> 16:9 im letterbox (Sendung in 4:3 aber Bild ist eigentlich 16:9)
+EOF
 read F
 case $F in
 	1)	
 		ASPECT=$(float_eval '16 / 9')
+		;;
+	3)	
+		ASPECT=$(float_eval '16 / 9')
+		VCODEC="$VCODEC -vf crop=480:432:0:72"
 		;;
 	*)
 		ASPECT=$(float_eval '4 / 3')
